@@ -13,6 +13,7 @@ public class HeroRabbit : MonoBehaviour {
 	public float MaxJumpTime = 2f;
 	public float JumpSpeed = 2f;
 
+
 	void Awake() {
 		value = Input.GetAxis("Horizontal");
 	}
@@ -61,9 +62,14 @@ public class HeroRabbit : MonoBehaviour {
 		RaycastHit2D hit = Physics2D.Linecast (from, to, layer_id);
 		if (hit) {
 			isGrounded = true;
+			if (hit.transform != null && hit.transform.GetComponent<MovingPlatform> () != null) {
+				SetNewParent (this.transform, hit.transform);
+			}
 		} else {
 			isGrounded = false;
+			SetNewParent (this.transform, hit.transform);
 		}
+
 		Debug.DrawLine (from, to, Color.red);
 
 		if(Input.GetButtonDown("Jump") && isGrounded) {
@@ -81,6 +87,14 @@ public class HeroRabbit : MonoBehaviour {
 				this.JumpActive = false;
 				this.JumpTime = 0;
 			}
+		}
+	}
+
+	static void SetNewParent(Transform obj, Transform new_parent) {
+		if (obj.transform.parent != new_parent) {
+			Vector3 pos = obj.transform.position;
+			obj.transform.parent = new_parent;
+			obj.transform.position = pos;
 		}
 	}
 }
