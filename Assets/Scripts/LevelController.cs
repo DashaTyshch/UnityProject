@@ -5,13 +5,13 @@ using UnityEngine;
 public class LevelController : MonoBehaviour {
 	public static LevelController current;
 	Vector3 startingPosition;
+	int coins = 0;
 
 	void Awake() {
 		current = this;
 	}
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,13 @@ public class LevelController : MonoBehaviour {
 	}
 
 	public void onRabbitDeath(HeroRabbit rabbit) {
+		//rabbit.animator.SetBool ("die", true);
 		rabbit.transform.position = this.startingPosition;
-		print ("Triggered");
+		//rabbit.animator.SetBool ("die", false);
+	}
+
+	public void addCoins(int n) {
+		this.coins += n;
+		print (coins);
 	}
 }

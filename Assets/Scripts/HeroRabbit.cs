@@ -12,10 +12,13 @@ public class HeroRabbit : MonoBehaviour {
 	float JumpTime = 0f;
 	public float MaxJumpTime = 2f;
 	public float JumpSpeed = 2f;
+	public Animator animator;
+	public bool isBigger = false;
 
 
 	void Awake() {
 		value = Input.GetAxis("Horizontal");
+		animator = GetComponent<Animator> ();
 	}
 
 	// Use this for initialization
@@ -31,7 +34,6 @@ public class HeroRabbit : MonoBehaviour {
 
 	void FixedUpdate () {
 		value = Input.GetAxis("Horizontal");
-		Animator animator = GetComponent<Animator> ();
 
 		if (Mathf.Abs (value) > 0) {
 			animator.SetBool ("run", true);
@@ -48,7 +50,6 @@ public class HeroRabbit : MonoBehaviour {
 			animator.SetBool ("jump", true);
 		}
 	
-
 		SpriteRenderer sr = GetComponent<SpriteRenderer> ();
 		if (value < 0) {
 			sr.flipX = true;
@@ -96,5 +97,14 @@ public class HeroRabbit : MonoBehaviour {
 			obj.transform.parent = new_parent;
 			obj.transform.position = pos;
 		}
+	}
+
+	public void die() {
+		LevelController.current.onRabbitDeath (this);
+	}
+
+	public void resize(float n) {
+		this.transform.localScale = new Vector3 (n, n, 1);
+		isBigger = true;
 	}
 }
