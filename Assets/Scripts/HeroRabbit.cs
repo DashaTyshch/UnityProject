@@ -15,8 +15,11 @@ public class HeroRabbit : MonoBehaviour {
 	public Animator animator;
 	public bool isBigger = false;
 
+	public static HeroRabbit lastRabbit = null;
+
 
 	void Awake() {
+		lastRabbit = this;
 		value = Input.GetAxis("Horizontal");
 		animator = GetComponent<Animator> ();
 	}
