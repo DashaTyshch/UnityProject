@@ -22,6 +22,7 @@ public class HeroRabbit : MonoBehaviour {
 		lastRabbit = this;
 		value = Input.GetAxis("Horizontal");
 		animator = GetComponent<Animator> ();
+		this.gameObject.name = "HeroRabbit";
 	}
 
 	// Use this for initialization

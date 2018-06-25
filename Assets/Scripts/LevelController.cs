@@ -26,12 +26,20 @@ public class LevelController : MonoBehaviour {
 	public Sprite Green = null;
 	public Sprite Blue = null;
 
+	public AudioClip backMusic = null;
+	AudioSource backSource = null;
+
 	void Awake() {
 		current = this;
 		fruit = FindObjectsOfType<Fruit>().Length;
 	}
 	// Use this for initialization
 	void Start () {
+		backSource = gameObject.AddComponent<AudioSource> ();
+		backSource.clip = backMusic;
+		backSource.loop = true;
+		backSource.Play ();
+
 		if(coinsLabel!=null)
 			coinsLabel.text = "0000";
 		if(fruitLabel!=null)
